@@ -9,14 +9,16 @@ import Users from './pages/Users'
 import Trash from './pages/Trash'
 import TaskDetails from './pages/TaskDetails'
 
+import Sidebar from './components/Sidbar'
+
 function Layout() {
   const { user } = useSelector((state) => state.auth)
   const location = useLocation()
 
-  return user ? (
+  return /* user ? */ (
     <div className='w-full h-screen flex flex-col md:flex-row'>
       <div className='w-1/5 b-screen bg-white sticky top-0 hidden md:block'>
-        {/* <Sidebar /> */}
+        <Sidebar /> 
       </div>
 
       {/* <MobileSidebar /> */}
@@ -29,9 +31,9 @@ function Layout() {
         </div>
       </div>
     </div>
-  ) : (
+  ) /* : (
     <Navigate to='/log-in' state={{from: location}} replace /> 
-  )
+  ) */
 }
 
 function App() {
