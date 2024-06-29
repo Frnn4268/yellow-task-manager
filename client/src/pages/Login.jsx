@@ -20,8 +20,6 @@ const Login = () => {
     console.log("submit")
   }
 
-  console.log(user)
-
   useEffect(() => {
     user && navigate('/dashboard') 
   }, [user])
