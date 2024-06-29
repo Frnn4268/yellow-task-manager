@@ -1,5 +1,6 @@
 import {Routes, Route, Navigate, useLocation, Outlet} from 'react-router-dom'
 import { Toaster } from 'sonner'
+import { useSelector } from 'react-redux'
 
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -9,7 +10,7 @@ import Trash from './pages/Trash'
 import TaskDetails from './pages/TaskDetails'
 
 function Layout() {
-  const user = ""
+  const { user } = useSelector((state) => state.auth)
   const location = useLocation()
 
   return user ? (
