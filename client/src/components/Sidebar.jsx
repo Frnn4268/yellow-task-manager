@@ -70,7 +70,7 @@ const Sidebar = () => {
         to={el.link}
         onClick={closeSidebar}
         className={clsx(
-          "w-full lg:w-3/4 flex gap-2 px-3 py-2 rounded-full items-center text-gray-800 text-base hover:bg-[#9c8b3e2d]",
+          "w-full lg:w-3/4 flex gap-2 px-3 py-2 rounded-full items-center text-gray-800 text-base hover:bg-[#e9d24f]",
           path === el.link.split("/")[0] ? "bg-yellow-600 text-neutral-100" : ""
         )}
       >
@@ -85,7 +85,7 @@ const Sidebar = () => {
         <p className='bg-yellow-600 p-2 rounded-full'>
           <MdOutlineAddTask className='text-white text-2xl font-black' />
         </p>
-        <span className='text-2xl font-bold text-black'>TaskMe</span>
+        <span className='text-2xl font-bold text-black'>Task me</span>
       </h1>
 
       <div className='flex-1 flex flex-col gap-y-5 py-8'>
