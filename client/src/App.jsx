@@ -49,7 +49,7 @@ const MobileSidebar = () => {
 
   const closeSidebar = () => {
     dispatch(setOpenSidebar(false));
-  };
+  }
 
   return (
     <>
@@ -90,8 +90,8 @@ const MobileSidebar = () => {
         )}
       </Transition>
     </>
-  );
-};
+  )
+}
 
 function App() {
   return (
