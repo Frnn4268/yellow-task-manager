@@ -4,24 +4,24 @@ import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdKeyboardDoubleArrowUp,
-} from 'react-icons/md';
-import { LuClipboardEdit } from 'react-icons/lu';
-import { FaNewspaper, FaUsers } from 'react-icons/fa';
-import { FaArrowsToDot } from 'react-icons/fa6';
-import moment from 'moment';
-import clsx from 'clsx';
+} from 'react-icons/md'
+import { LuClipboardEdit } from 'react-icons/lu'
+import { FaNewspaper, FaUsers } from 'react-icons/fa'
+import { FaArrowsToDot } from 'react-icons/fa6'
+import moment from 'moment'
+import clsx from 'clsx'
 
-import { summary, tasks } from '../assets/data';
-import { BGS, PRIORITYSTYELS, TASK_TYPE, getInitials } from '../utils';
+import { summary, tasks } from '../assets/data'
+import { BGS, PRIORITYSTYELS, TASK_TYPE, getInitials } from '../utils'
 import { Chart } from '../components/Chart'
-import UserInfo from "../components/UserInfo";
+import UserInfo from "../components/UserInfo"
 
 const TaskTable = ({ tasks }) => {
   const ICONS = {
     high: <MdKeyboardDoubleArrowUp />,
     medium: <MdKeyboardArrowUp />,
     low: <MdKeyboardArrowDown />,
-  };
+  }
 
   const TableHeader = () => (
     <thead className='border-b border-gray-300 '>
@@ -32,7 +32,7 @@ const TaskTable = ({ tasks }) => {
         <th className='py-2 hidden md:block'>Created At</th>
       </tr>
     </thead>
-  );
+  ) 
 
   const TableRow = ({ task }) => (
     <tr className='border-b border-gray-300 text-gray-600 hover:bg-gray-300/10'>
@@ -76,7 +76,8 @@ const TaskTable = ({ tasks }) => {
         </span>
       </td>
     </tr>
-  );
+  )
+
   return (
     <>
       <div className='w-full md:w-2/3 bg-white px-2 md:px-4 pt-4 pb-4 shadow-md rounded'>
@@ -90,8 +91,8 @@ const TaskTable = ({ tasks }) => {
         </table>
       </div>
     </>
-  );
-};
+  )
+}
 
 const UserTable = ({ users }) => {
   const TableHeader = () => (
@@ -102,7 +103,7 @@ const UserTable = ({ users }) => {
         <th className='py-2'>Created At</th>
       </tr>
     </thead>
-  );
+  )
 
   const TableRow = ({ user }) => (
     <tr className='border-b border-gray-200  text-gray-600 hover:bg-gray-400/10'>
@@ -111,7 +112,6 @@ const UserTable = ({ users }) => {
           <div className='w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-violet-700'>
             <span className='text-center'>{getInitials(user?.name)}</span>
           </div>
-
           <div>
             <p> {user.name}</p>
             <span className='text-xs text-black'>{user?.role}</span>
@@ -131,7 +131,7 @@ const UserTable = ({ users }) => {
       </td>
       <td className='py-2 text-sm'>{moment(user?.createdAt).fromNow()}</td>
     </tr>
-  );
+  )
 
   return (
     <div className='w-full md:w-1/3 bg-white h-fit px-2 md:px-6 py-4 shadow-md rounded'>
@@ -144,10 +144,11 @@ const UserTable = ({ users }) => {
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
+
 const Dashboard = () => {
-  const totals = summary.tasks;
+  const totals = summary.tasks
 
   const stats = [
     {
@@ -178,7 +179,7 @@ const Dashboard = () => {
       icon: <FaArrowsToDot />,
       bg: "bg-[#be185d]" || 0,
     },
-  ];
+  ]
 
   const Card = ({ label, count, bg, icon }) => {
     return (
@@ -198,8 +199,9 @@ const Dashboard = () => {
           {icon}
         </div>
       </div>
-    );
-  };
+    )
+  }
+
   return (
     <div classNamee='h-full py-4'>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-5'>
@@ -217,15 +219,13 @@ const Dashboard = () => {
 
       <div className='w-full flex flex-col md:flex-row gap-4 2xl:gap-10 py-8'>
         {/* /left */}
-
         <TaskTable tasks={summary.last10Task} />
 
         {/* /right */}
-
         <UserTable users={summary.users} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
