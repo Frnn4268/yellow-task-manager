@@ -10,7 +10,7 @@ const ICONS = {
     high: <MdKeyboardDoubleArrowUp />,
     medium: <MdKeyboardArrowUp />,
     low: <MdKeyboardArrowDown />,
-  }
+}
 
 const TaskCard = ({ task }) => {
   const { user } = useSelector((state) => state.auth)
@@ -32,21 +32,23 @@ const TaskCard = ({ task }) => {
             </span>
           </div>
 
-          {
-          user?.isAdmin && <TaskDialog task={ task }/>
-          }
-          </div>  
-          <>
-            <div className='flex items-center gap-2'>
-              <div className={
-                clsx('w-4 h-4 rounded-full', 
-                  TASK_TYPE[task.stage])
-                }
-              >
-              </div>
+          {user?.isAdmin && <TaskDialog task={ task } />}
+        </div>  
+        <>
+          <div className='flex items-center gap-2'>
+            <div className={
+              clsx('w-4 h-4 rounded-full', 
+              TASK_TYPE[task.stage])
+            }
+            >
+              <h4 className='line-clamp-1'>{task?.title}</h4>
             </div>
-          </>
-        </div>
+          </div>
+          <span className='text-sm text-gray-600'>
+            {formatDate(new Date(task?.date))}
+          </span>
+        </>
+      </div>
     </>
   )
 }
