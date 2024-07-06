@@ -11,6 +11,7 @@ import Tabs from '../components/Tabs'
 import TaskTitle from '../components/TaskTitle'
 import BoardView from '../components/BoardView'
 import { tasks } from '../assets/data'
+import Table from '../components/task/Table'
 
 const TABS = [ 
   { title: "Board View", icon: <MdGridView /> },
@@ -43,9 +44,10 @@ const Tasks = () => {
         {
           !status && (
             <Button
+              onClick={() => setOpen(true)}
               label='Create Task'
               icon={<IoMdAdd className='text-lg' />}
-              className='flex flex-row-reverse gap-1 bg-yellow-600 text-white rounded-md py-2 2xl:py-2.5'
+              className='flex flex-row-reverse gap-1 items-center bg-yellow-600 text-white rounded-md py-2 2xl:py-2.5'
             />
           ) 
         }
@@ -61,9 +63,15 @@ const Tasks = () => {
             </div>
           )}
 
-          {selected === 0
-            ? <BoardView tasks={ tasks } />
-            : <div></div>
+          {selected === 0 ? (
+            <BoardView tasks={ tasks } />
+          ) : (
+            <div className='w-full'>
+              <Table 
+                tasks={tasks}
+              />
+            </div>
+            )
           }
         </Tabs>
       </div>
