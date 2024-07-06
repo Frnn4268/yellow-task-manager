@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
-import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardDoubleArrowUp } from 'react-icons/md'
+import { MdAttachFile, MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardDoubleArrowUp } from 'react-icons/md'
+import { BiMessageAltDetail } from "react-icons/bi"
+import { FaList } from 'react-icons/fa'
 
 import { BGS, PRIORITYSTYELS, TASK_TYPE, formatDate } from "../utils"
 import TaskDialog from './task/TaskDialog'
+import UserInfo from "./UserInfo"
 
 const ICONS = {
     high: <MdKeyboardDoubleArrowUp />,
@@ -40,14 +43,77 @@ const TaskCard = ({ task }) => {
               clsx('w-4 h-4 rounded-full', 
               TASK_TYPE[task.stage])
             }
-            >
-              <h4 className='line-clamp-1'>{task?.title}</h4>
-            </div>
+            />
+            <h4 className='line-clamp-1 text-black'>{task?.title}</h4>
           </div>
           <span className='text-sm text-gray-600'>
             {formatDate(new Date(task?.date))}
           </span>
         </>
+
+        <div className='w-full border-t border-gray-200 my-2'/>
+        <div className='flex items-center justify-between mb-2'>
+          <div className='flex items-center gap-3'>
+            <div className='flex gap-1 items-center text-sm text-gray-600'>
+              <BiMessageAltDetail />
+              <span>
+                {task?.activities?.length}
+              </span>
+            </div>
+            <div className='flex gap-1 items-center text-sm text-gray-600'>
+              <MdAttachFile />
+              <span>
+                {task?.activities?.length}
+              </span>
+            </div>
+            <div className='flex gap-1 items-center text-sm text-gray-600'>
+              <FaList />
+              <span>
+                {task?.activities?.length}
+              </span>
+            </div>
+          </div>
+
+          <div className='flex flex-row-reverse'>
+            {task?.team?.map((m, index) => (
+              <div
+                key={index}
+                className={clsx('w-7 h-7 rounded-full text-white flex items-center justify-center text-sm -mr-1', 
+                  BGS[index % BGS?.length]
+                )}
+              >
+                <UserInfo user={m} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Sub tasks */}
+        {task?.subTasks?.length > 0 
+        ? (
+          <div className='py-4 border-t border-gray-200'> 
+            <h5 className='text-base line-clamp-2 text-black'>
+              {task?.subTasks[0].title}
+            </h5>
+
+            <div className='p-4 space-x-8'>
+              <span className='text-sm text-gray-600'>
+                {formatDate(new Date(task?.subTasks[0]?.date))}
+              </span>
+              <span className='bg-yellow-300/20 px-3 py-1 rounded-full text-yellow-800 font-medium'>
+                {task?.subTasks[0].tag}
+              </span>
+            </div>
+          </div>  
+        ) : (
+          <div className='py-4 border-t border-gray-200'>
+            <span className='text-gray-500'>
+              No Sub Task
+            </span>
+          </div>
+        )}
+
+        
       </div>
     </>
   )
