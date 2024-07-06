@@ -58,11 +58,11 @@ const Sidebar = () => {
 
   const path = location.pathname.split("/")[1];
 
-  const sidebarLinks = user?.isAdmin ? linkData : linkData.slice(0, 5);
+  const sidebarLinks = user?.isAdmin ? linkData : linkData.slice(0, 7)
 
   const closeSidebar = () => {
     dispatch(setOpenSidebar(false));
-  };
+  }
 
   const NavLink = ({ el }) => {
     return (
@@ -77,8 +77,9 @@ const Sidebar = () => {
         {el.icon}
         <span className='hover:text-yellow'>{el.label}</span>
       </Link>
-    );
-  };
+    )
+  }
+
   return (
     <div className='w-full  h-full flex flex-col gap-6 p-5'>
       <h1 className='flex gap-1 items-center'>
@@ -101,7 +102,7 @@ const Sidebar = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Sidebar;
