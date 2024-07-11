@@ -7,9 +7,9 @@ import Textbox from '../Textbox'
 import UserList from './UserList'
 
 const AddTask = ({ open, setOpen }) => {
-  const [team, setTeam] = useState(task?.team || [])
-
   const task = ''
+
+  const [team, setTeam] = useState(task?.team || [])
 
   const { 
     register, 
