@@ -6,11 +6,13 @@ import {
   MdKeyboardArrowUp,
   MdKeyboardDoubleArrowUp,
 } from 'react-icons/md'
-import { BGS, PRIORITYSTYELS, TASK_TYPE, formatDate } from '../../utils'
 import clsx from 'clsx'
 import { FaList } from 'react-icons/fa'
+
+import { BGS, PRIORITYSTYELS, TASK_TYPE, formatDate } from '../../utils'
 import UserInfo from '../UserInfo'
 import Button from '../Button'
+import ConfirmatioDialog from '../Dialogs'
 
 const ICONS = {
   high: <MdKeyboardDoubleArrowUp />,
@@ -23,9 +25,11 @@ const Table = ({ tasks }) => {
   const [selected, setSelected] = useState(null)
 
   const deleteClicks = (id) => {
-    setSelected(id);
+    setSelected(id)
     setOpenDialog(true)
-  };
+  }
+
+  const deleteHandler = () => {}
 
   const TableHeader = () => (
     <thead className='w-full border-b border-gray-300'>
@@ -131,7 +135,8 @@ const Table = ({ tasks }) => {
   )
 
   return (
-    <div className='bg-white  px-2 md:px-4 pt-4 pb-9 shadow-md rounded'>
+    <>
+      <div className='bg-white  px-2 md:px-4 pt-4 pb-9 shadow-md rounded'>
         <div className='overflow-x-auto'>
           <table className='w-full '>
             <TableHeader />
@@ -143,6 +148,13 @@ const Table = ({ tasks }) => {
           </table>
         </div>
       </div>
+
+      <ConfirmatioDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        onClick={deleteHandler}
+      />
+    </>
   )
 }
 
