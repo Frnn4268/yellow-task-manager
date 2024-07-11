@@ -6,8 +6,11 @@ import { HiDuplicate } from "react-icons/hi"
 import { MdAdd, MdOutlineEdit } from "react-icons/md"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { Menu, Transition } from '@headlessui/react'
+import AddTask from './AddTask'
+import AddSubTask from './AddSubTask'
+import ConfirmatioDialog from '../Dialogs'
 
-const TaskDialog = () => {
+const TaskDialog = ({ task }) => {
   const [open, setOpen] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
@@ -43,7 +46,8 @@ const TaskDialog = () => {
 
 
   return (
-    <div>
+    <>
+      <div>
         <Menu as='div' className='relative inline-block text-left'>
           <Menu.Button className='inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-gray-600 '>
             <BsThreeDots />
@@ -98,7 +102,24 @@ const TaskDialog = () => {
             </Menu.Items>
           </Transition>
         </Menu>
-    </div>
+      </div>
+
+      <AddTask
+        open={openEdit}
+        setOpen={setOpenEdit}
+        task={task}
+        key={new Date().getTime()}
+      />
+
+      <AddSubTask open={open} setOpen={setOpen} />
+
+      <ConfirmatioDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        onClick={deleteHandler}
+      />
+    </>
+    
   )
 }
 
