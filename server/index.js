@@ -5,7 +5,7 @@ import express from 'express'
 import morgan from 'morgan'
 
 import dbConnection from './utils/index.js' // Database connection import from utils
-import { errorHandler, routeNotFound } from './middlewares/errorMiddlewares.js'
+import { errorHandler, routeNotFound } from './middlewares/errorMiddlewares.js' // Error middlewares import
  
 const routes = ''
 
@@ -33,7 +33,7 @@ app.use(cookieParser())
 app.use(morgan('dev'))
 // app.use('/api', routes)
 
-// Middlewares
+// Error middlewares
 app.use(routeNotFound)
 app.use(errorHandler)
 
