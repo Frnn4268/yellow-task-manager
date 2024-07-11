@@ -12,6 +12,7 @@ import TaskTitle from '../components/TaskTitle'
 import BoardView from '../components/BoardView'
 import { tasks } from '../assets/data'
 import Table from '../components/task/Table'
+import AddTask from '../components/task/AddTask'
 
 const TABS = [ 
   { title: "Board View", icon: <MdGridView /> },
@@ -74,6 +75,8 @@ const Tasks = () => {
             )
           }
         </Tabs>
+
+        <AddTask open={open} setOpen={setOpen}/>
       </div>
     </div>
   )
