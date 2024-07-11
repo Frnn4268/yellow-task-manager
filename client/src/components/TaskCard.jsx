@@ -4,11 +4,12 @@ import clsx from 'clsx'
 import { MdAttachFile, MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardDoubleArrowUp } from 'react-icons/md'
 import { BiMessageAltDetail } from "react-icons/bi"
 import { FaList } from 'react-icons/fa'
+import { IoMdAdd } from 'react-icons/io'
 
 import { BGS, PRIORITYSTYELS, TASK_TYPE, formatDate } from "../utils"
 import TaskDialog from './task/TaskDialog'
 import UserInfo from "./UserInfo"
-import { IoMdAdd } from 'react-icons/io'
+import AddSubTask from './task/AddSubTask'
 
 const ICONS = {
     high: <MdKeyboardDoubleArrowUp />,
@@ -36,7 +37,8 @@ const TaskCard = ({ task }) => {
             </span>
           </div>
 
-          {user?.isAdmin && <TaskDialog task={ task } />}
+          {/* {user?.isAdmin && <TaskDialog task={ task }/>} */}
+          {<TaskDialog task={ task }/>} {/* Change this code line */}
         </div>  
         <>
           <div className='flex items-center gap-2'>
@@ -116,7 +118,8 @@ const TaskCard = ({ task }) => {
 
         <div className='w-full pb-2'>
           <button
-            disabled={user.isAdmin ? false : true}
+            onClick={() => setOpen(true)}
+            // disabled={user.isAdmin ? false : true}
             className='w-full flex gap-4 items-center text-sm text-gray-500 font-semibold disabled:cursor-not-allowed disabled::text-gray-300'
           >
             <IoMdAdd className='text-lg' />
@@ -127,7 +130,7 @@ const TaskCard = ({ task }) => {
         </div>
       </div>
 
-      {/* <AddSubTask open={open} setOpen={setOpen} id={task._id} */}
+      <AddSubTask open={open} setOpen={setOpen} id={task._id}/>
     </>
   )
 }
