@@ -1,10 +1,13 @@
-import React, { useState } from "react"
-import Title from "../components/Title"
-import Button from "../components/Button"
-import { IoMdAdd } from "react-icons/io"
-import { summary } from "../assets/data"
-import { getInitials } from "../utils"
-import clsx from "clsx"
+import React, { useState } from 'react'
+import { IoMdAdd } from 'react-icons/io'
+import { getInitials } from '../utils'
+import clsx from 'clsx'
+
+import Title from '../components/Title'
+import Button from '../components/Button'
+import { summary } from '../assets/data'
+import ConfirmatioDialog, { UserAction } from '../components/Dialogs'
+import AddUser from '../components/AddUser'
 
 const Users = () => {
   const [openDialog, setOpenDialog] = useState(false)
@@ -51,17 +54,17 @@ const Users = () => {
       </td>
 
       <td className='p-2'>{user.title}</td>
-      <td className='p-2'>{user.email || "user.emal.com"}</td>
+      <td className='p-2'>{user.email || 'user.emal.com'}</td>
       <td className='p-2'>{user.role}</td>
 
       <td>
         <button
           className={clsx(
-            "w-fit px-4 py-1 rounded-full",
-            user?.isActive ? "bg-green-200" : "bg-red-100"
+            'w-fit px-4 py-1 rounded-full',
+            user?.isActive ? 'bg-green-200' : 'bg-red-100'
           )}
         >
-          {user?.isActive ? "Active" : "Disabled"}
+          {user?.isActive ? 'Active' : 'Disabled'}
         </button>
       </td>
 
@@ -84,30 +87,51 @@ const Users = () => {
   )
 
   return (
-    <div className='w-full md:px-1 px-0 mb-6'>
-      <div className='flex items-center justify-between mb-8'>
-        <Title title='  Team Members' />
-        <Button
-          label='Add New User'
-          icon={<IoMdAdd className='text-lg' />}
-          className='flex flex-row-reverse gap-1 items-center bg-yellow-600 text-white rounded-md 2xl:py-2.5'
-          onClick={() => setOpen(true)}
-        />
-      </div>
+    <>
+      <div className='w-full md:px-1 px-0 mb-6'>
+        <div className='flex items-center justify-between mb-8'>
+          <Title title='  Team Members' />
+          <Button
+            label='Add New User'
+            icon={<IoMdAdd className='text-lg' />}
+            className='flex flex-row-reverse gap-1 items-center bg-yellow-600 text-white rounded-md 2xl:py-2.5'
+            onClick={() => setOpen(true)}
+          />
+        </div>
 
-      <div className='bg-white px-2 md:px-4 py-4 shadow-md rounded'>
-         <div className='overflow-x-auto'>
-          <table className='w-full mb-5'>
-            <TableHeader />
-            <tbody>
-              {summary.users?.map((user, index) => (
-                <TableRow key={index} user={user} />
-              ))}
-            </tbody>
-          </table>
+        <div className='bg-white px-2 md:px-4 py-4 shadow-md rounded'>
+          <div className='overflow-x-auto'>
+            <table className='w-full mb-5'>
+              <TableHeader />
+              <tbody>
+                {summary.users?.map((user, index) => (
+                  <TableRow key={index} user={user} />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+
+      <AddUser
+        open={open}
+        setOpen={setOpen}
+        userData={selected}
+        key={new Date().getTime().toString()}
+      />
+
+      <ConfirmatioDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        onClick={deleteHandler}
+      />
+
+      <UserAction
+        open={openAction}
+        setOpen={setOpenAction}
+        onClick={userActionHandler}
+      />
+    </>
   )
 }
 
