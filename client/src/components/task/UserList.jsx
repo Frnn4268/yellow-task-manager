@@ -59,7 +59,7 @@ const UserList = ({ setTeam, team }) => {
               {data?.map((user, index) => (
                 <Listbox.Option
                   key={index}
-                  className={({active}) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'}`}
+                  className={({active}) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-green-100 text-green-900' : 'text-gray-900'}`}
                   value={user}
                 >
                     {({selected}) => (
