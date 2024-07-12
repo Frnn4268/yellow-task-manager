@@ -175,6 +175,30 @@ export const markNotificationRead = async (req, res) => {
   }
 };
 
+export const changeUserPassword = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const user = await User.findById(userId);
+
+    if (user) {
+      user.password = req.body.password;
+
+      await user.save();
+
+      user.password = undefined;
+
+      res.status(201).json({
+        status: true,
+        message: `Password changed successfully.`,
+      });
+    } else {
+      res.status(404).json({ status: false, message: "User not found" });
+    }
+  } catch (error) {
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
 // export const registerUser = async (req, res) => {
 //     try {
 

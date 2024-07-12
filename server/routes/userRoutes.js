@@ -1,7 +1,7 @@
 import express from "express";
 
 import { isAdminRoute, protectRoute } from "../middlewares/authMiddleware.js";
-import { getNotificationsList, getTeamList, loginUser, logoutUser, markNotificationRead, registerUser, updateUserProfile } from "../controllers/userController.js";
+import { changeUserPassword, getNotificationsList, getTeamList, loginUser, logoutUser, markNotificationRead, registerUser, updateUserProfile } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get("/notifications", protectRoute, getNotificationsList);
 
 router.put("/profile", protectRoute, updateUserProfile);
 router.put("/read-noti", protectRoute, markNotificationRead);
-// router.put("/change-password", protectRoute, changeUserPassword);
+router.put("/change-password", protectRoute, changeUserPassword);
 
 // // FOR ADMIN ONLY - ADMIN ROUTES
 // router
