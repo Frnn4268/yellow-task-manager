@@ -199,12 +199,33 @@ export const changeUserPassword = async (req, res) => {
   }
 };
 
-// export const registerUser = async (req, res) => {
-//     try {
+export const activateUserProfile = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const user = await User.findById(userId);
 
-//     } catch (error) {
-//         return res
-//             .status(400)
-//             .json({ status: false, message: error.message })
-//     }
-// }
+    if (user) {
+      user.isActive = req.body.isActive;
+
+      await user.save();
+
+      res.status(201).json({
+        status: true,
+        message: `User account has been ${
+          user?.isActive ? "activated" : "disabled"
+        }`,
+      });
+    } else {
+      res.status(404).json({ status: false, message: "user not found" });
+    }
+  } catch (error) {
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+export const deleteUserProfile = async (req, res) => {
+  try {
+  } catch (error) {
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
