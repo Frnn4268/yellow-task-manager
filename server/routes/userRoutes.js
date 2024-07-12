@@ -1,7 +1,7 @@
 import express from "express";
 
 import { isAdminRoute, protectRoute } from "../middlewares/authMiddleware.js";
-import { getTeamList, loginUser, logoutUser, registerUser } from "../controllers/userController.js";
+import { getNotificationsList, getTeamList, loginUser, logoutUser, registerUser, updateUserProfile } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -10,9 +10,9 @@ router.post("/login", loginUser);
 router.post('/logout', logoutUser)
 
 router.get("/get-team", protectRoute, isAdminRoute, getTeamList);
-// router.get("/notifications", protectRoute, getNotificationsList);
+router.get("/notifications", protectRoute, getNotificationsList);
 
-// router.put("/profile", protectRoute, updateUserProfile);
+router.put("/profile", protectRoute, updateUserProfile);
 // router.put("/read-noti", protectRoute, markNotificationRead);
 // router.put("/change-password", protectRoute, changeUserPassword);
 
