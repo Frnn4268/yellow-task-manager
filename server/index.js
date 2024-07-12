@@ -4,10 +4,10 @@ import dotenv from 'dotenv'
 import express from 'express'
 import morgan from 'morgan'
 
-import dbConnection from './utils/index.js' // Database connection import from utils
+import dbConnection from './utils/MongoDBConnection.js' // Database connection import from utils
 import { errorHandler, routeNotFound } from './middlewares/errorMiddlewares.js' // Error middlewares import
  
-const routes = ''
+import routes from './routes/index.js'
 
 dotenv.config()
 
@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(cookieParser())
 app.use(morgan('dev'))
-// app.use('/api', routes)
+app.use('/api', routes)
 
 // Error middlewares
 app.use(routeNotFound)
