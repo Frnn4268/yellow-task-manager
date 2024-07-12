@@ -148,6 +148,33 @@ export const updateUserProfile = async (req, res) => {
   }
 };
 
+export const markNotificationRead = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { isReadType, id } = req.query;
+
+    if (isReadType === "all") {
+      await Notice.updateMany(
+        { team: userId, isRead: { $nin: [userId] } },
+        {
+          $push: { isRead: userId },
+        },
+        { new: true }
+      );
+    } else {
+      await Notice.findOneAndUpdate(
+        { _id: id, isRead: { $nin: [userId] } },
+        { $push: { isRead: userId } },
+        { new: true }
+      );
+    }
+
+    res.status(201).json({ status: true, message: "Done" });
+  } catch (error) {
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
 // export const registerUser = async (req, res) => {
 //     try {
 
