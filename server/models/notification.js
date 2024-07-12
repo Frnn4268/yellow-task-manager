@@ -1,37 +1,34 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from "mongoose";
 
 const noticeSchema = new Schema(
   {
-    team: [ // Reference to User model
-        { type: Schema.Types.ObjectId, 
-            ref: 'User' 
-        }
+    team: [
+      // Reference to User model
+      { type: Schema.Types.ObjectId, ref: "User" },
     ],
-    text: { 
-        type: String 
+    text: {
+      type: String,
     },
-    task: { // Reference to Task model
-        type: Schema.Types.ObjectId, 
-        ref: 'Task' 
+    task: {
+      // Reference to Task model
+      type: Schema.Types.ObjectId,
+      ref: "Task",
     },
-    notiType: { 
-        type: String, 
-        default: 'alert', 
-        enum: [
-            'alert', 
-            'message'
-        ] 
+    notiType: {
+      type: String,
+      default: "alert",
+      enum: ["alert", "message"],
     },
     isRead: [
-        { 
-            type: Schema.Types.ObjectId, 
-            ref: 'User' 
-        }
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
     ],
   },
   { timestamps: true }
-)
+);
 
-const Notice = mongoose.model('Notice', noticeSchema)
+const Notice = mongoose.model("Notice", noticeSchema);
 
-export default Notice
+export default Notice;

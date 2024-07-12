@@ -1,15 +1,15 @@
-import express from 'express'
+import express from "express";
 
-import { isAdminRoute, protectRoute } from '../middlewares/authMiddleware.js'
-import { loginUser, registerUser } from '../controllers/userController.js'
+import { isAdminRoute, protectRoute } from "../middlewares/authMiddleware.js";
+import { getTeamList, loginUser, logoutUser, registerUser } from "../controllers/userController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/register', registerUser)
-router.post('/login', loginUser)
-// router.post('/logout', logoutUser)
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.post('/logout', logoutUser)
 
-// router.get("/get-team", protectRoute, isAdminRoute, getTeamList);
+router.get("/get-team", protectRoute, isAdminRoute, getTeamList);
 // router.get("/notifications", protectRoute, getNotificationsList);
 
 // router.put("/profile", protectRoute, updateUserProfile);
@@ -22,4 +22,4 @@ router.post('/login', loginUser)
 //   .put(protectRoute, isAdminRoute, activateUserProfile)
 //   .delete(protectRoute, isAdminRoute, deleteUserProfile);
 
-export default router
+export default router;
