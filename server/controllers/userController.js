@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Notice from "../models/notification.js";
 import { createJWT } from "../utils/createJWT.js";
 
 export const registerUser = async (req, res) => {
@@ -92,6 +93,28 @@ export const logoutUser = async (req, res) => {
 export const getTeamList = async (req, res) => {
   try {
     const users = await User.find().select("name title role email isActive");
+
+    res.status(200).json(users);
+  } catch (error) {
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+export const getNotificationsList = async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    const notice = await Notice.find({
+      team: userId,
+      isRead: { $nin: [userId] },
+    }).populate("task", "title");
+  } catch (error) {
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+export const updateUserProfile = async (req, res) => {
+  try {
   } catch (error) {
     return res.status(400).json({ status: false, message: error.message });
   }
