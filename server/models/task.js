@@ -1,78 +1,73 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from "mongoose";
 
-const taskSchema = new Schema({
+const taskSchema = new Schema(
+  {
     title: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     date: {
-        type: Date,
-        default: new Date()
+      type: Date,
+      default: new Date(),
     },
     priority: {
-        type: String,
-        default: 'normal',
-        enum: [
-            'high', 
-            'medium', 
-            'normal', 
-            'low'
-        ],
+      type: String,
+      default: "normal",
+      enum: ["high", "medium", "normal", "low"],
     },
     stage: {
-        type: String,
-        default: 'todo',
-        enum: [
-            'todo', 
-            'in progress', 
-            'completed'
-        ],
+      type: String,
+      default: "todo",
+      enum: ["todo", "in progress", "completed"],
     },
     activities: {
-        type: {
-            type: String,
-            default: 'assigned',
-            enum: [
-                'assigned', 
-                'started', 
-                'in progress',
-                'bug',
-                'completed',
-                'commented'
-            ],
-        },
-        activity: String,
-        date: {
-            type: Date,
-            default: new Date()
-        },
-        by: { // Reference to User model
-            type: Schema.Types.ObjectId,
-            ref: ('User')
-        },
+      type: {
+        type: String,
+        default: "assigned",
+        enum: [
+          "assigned",
+          "started",
+          "in progress",
+          "bug",
+          "completed",
+          "commented",
+        ],
+      },
+      activity: String,
+      date: {
+        type: Date,
+        default: new Date(),
+      },
+      by: {
+        // Reference to User model
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
     },
     subTasks: [
-        {
-            title: String,
-            date: Date,
-            tag: String
-        },
+      {
+        title: String,
+        date: Date,
+        tag: String,
+      },
     ],
     assets: [String],
     team: {
-        type: [
-            {
-                type: Schema.Types.ObjectId, 
-                ref: 'User'
-            },
-        ],
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
     },
     isTrashed: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
-}, { timestamps: true })
+  },
+  { timestamps: true }
+);
 
-const Task = mongoose.model('Task', taskSchema)
+const Task = mongoose.model("Task", taskSchema);
 
-export default Task
+export default Task;
