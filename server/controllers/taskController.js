@@ -4,21 +4,13 @@ import User from "../models/user.js";
 
 export const createTask = async (req, res) => {
   try {
+    const { userId } = req.user;
+
     const { title, team, stage, date, priority, assets } = req.body;
 
-    const task = await Task.create({
-      title,
-      team,
-      stage: stage.toLowerCase(),
-      date,
-      priority: priority.toLowerCase(),
-      assets,
-    });
-
     let text = "New task has been assigned to you";
-
-    if (task.team.length > 1) {
-      text = text + ` and ${task.team.lenght - 1} others`;
+    if (team?.length > 1) {
+      text = text + ` and ${team?.length - 1} others.`;
     }
 
     text =
@@ -27,15 +19,31 @@ export const createTask = async (req, res) => {
         date
       ).toDateString()}. Thank you!!!`;
 
+    const activity = {
+      type: "assigned",
+      activity: text,
+      by: userId,
+    };
+
+    const task = await Task.create({
+      title,
+      team,
+      stage: stage.toLowerCase(),
+      date,
+      priority: priority.toLowerCase(),
+      assets,
+      activities: activity,
+    });
+
     await Notice.create({
       team,
       text,
-      task: task_id,
+      task: task._id,
     });
 
     res
       .status(200)
-      .json({ status: true, message: "Task created successfully." });
+      .json({ status: true, task, message: "Task created successfully." });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
