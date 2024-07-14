@@ -215,6 +215,75 @@ export const getTasks = async (req, res) => {
   }
 };
 
+export const getTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const task = await Task.findById(id)
+      .populate({
+        path: "team",
+        select: "name title role email",
+      })
+      .populate({
+        path: "activities.by",
+        select: "name",
+      })
+      .sort({
+        _id: -1,
+      });
+
+    res.status(200).json({
+      status: true,
+      task,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+export const createSubTask = async (req, res) => {
+  try {
+    const { title, tag, date } = req.body;
+    const { id } = req.params;
+
+    const newSubTask = {
+      title,
+      date,
+      tag,
+    };
+
+    const task = await Task.findById(id);
+
+    task.subTasks.push(newSubTask);
+
+    await task.save();
+
+    res
+      .status(200)
+      .json({ status: true, message: "SubTask added successfully." });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+export const updateTask = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+export const trashTask = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
 // export const test = async (req, res) => {
 //   try {
 //   } catch (error) {
