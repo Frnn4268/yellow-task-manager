@@ -3,6 +3,7 @@ import {
   createSubTask,
   createTask,
   dashboardStatistics,
+  deleteRestoreTask,
   duplicateTask,
   getTask,
   getTasks,
@@ -26,11 +27,11 @@ router.put("/create-subtask/:id", protectRoute, isAdminRoute, createSubTask);
 router.put("/update/:id", protectRoute, isAdminRoute, updateTask);
 router.put("/:id", protectRoute, isAdminRoute, trashTask);
 
-// router.delete(
-//   "/delete-restore/:id?",
-//   protectRoute,
-//   isAdminRoute,
-//   deleteRestoreTask
-// );
+router.delete(
+  "/delete-restore/:id?",
+  protectRoute,
+  isAdminRoute,
+  deleteRestoreTask
+);
 
 export default router;
