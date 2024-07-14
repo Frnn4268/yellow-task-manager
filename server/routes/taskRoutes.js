@@ -3,6 +3,7 @@ import {
   createTask,
   dashboardStatistics,
   duplicateTask,
+  getTasks,
   postTaskActivity,
 } from "../controllers/taskController.js";
 import { isAdminRoute, protectRoute } from "../middlewares/authMiddleware.js";
@@ -14,7 +15,7 @@ router.post("/duplicate/:id", protectRoute, isAdminRoute, duplicateTask);
 router.post("/activity/:id", protectRoute, postTaskActivity);
 
 router.get("/dashboard", protectRoute, dashboardStatistics);
-// router.get("/", protectRoute, getTasks);
+router.get("/", protectRoute, getTasks);
 // router.get("/:id", protectRoute, getTask);
 
 export default router;
