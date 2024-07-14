@@ -270,6 +270,23 @@ export const createSubTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
+    const { id } = req.params;
+    const { title, date, team, stage, priority, assets } = req.body;
+
+    const task = await Task.findById(id);
+
+    task.title = title;
+    task.date = date;
+    task.priority = priority.toLowerCase();
+    task.assets = assets;
+    task.stage = stage.toLowerCase();
+    task.team = team;
+
+    await task.save();
+
+    res
+      .status(200)
+      .json({ status: true, message: "Task duplicated successfully." });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
@@ -278,6 +295,18 @@ export const updateTask = async (req, res) => {
 
 export const trashTask = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    const task = await Task.findById(id);
+
+    task.isTrashed = true;
+
+    await task.save();
+
+    res.status(200).json({
+      status: true,
+      message: `Task trashed successfully.`,
+    });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
