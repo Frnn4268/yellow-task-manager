@@ -154,6 +154,32 @@ export const dashboardStatistics = async (req, res) => {
 
       return result;
     }, {});
+
+    //Group tasks by priority
+    const groupData = Object.entries(
+      allsTasks.reduce((result, task) => {
+        const { priority } = task;
+
+        result[priority] = (result[priority] || 0) + 1;
+        return result;
+      }, {})
+    ).map(([name, total]) => ({ name, total }));
+
+    //Calculate total tasks
+    const totalTasks = allTask.length;
+    const lastTenTasks = allTask?.slice(0, 10);
+
+    const summary = {
+      totalTasks,
+      lastTenTasks,
+      users: isAdmin ? users : [],
+      tasks: groupTask,
+      graphData: groupData,
+    };
+
+    return res
+      .status(200)
+      .json({ status: true, message: "Successfully", ...summary });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ status: false, message: error.message });
