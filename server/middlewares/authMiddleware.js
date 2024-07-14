@@ -3,7 +3,7 @@ import User from "../models/user.js";
 
 const protectRoute = async (req, res, next) => {
   try {
-    let token = req.cookie.token;
+    let token = req.cookies?.token;
 
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -22,7 +22,7 @@ const protectRoute = async (req, res, next) => {
     } else {
       return res
         .status(401)
-        .json({ status: false, message: "Not authorized. Try login again." });
+        .json({ status: false, message: "Not outhorized. Try login again." });
     }
   } catch (error) {
     console.error(error);
