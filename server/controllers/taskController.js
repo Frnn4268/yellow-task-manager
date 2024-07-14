@@ -1,5 +1,6 @@
 import Notice from "../models/notification.js";
 import Task from "../models/task.js";
+import User from "../models/user.js";
 
 export const createTask = async (req, res) => {
   try {
@@ -112,3 +113,57 @@ export const postTaskActivity = async (req, res) => {
     return res.status(400).json({ status: false, message: error.message });
   }
 };
+
+export const dashboardStatistics = async (req, res) => {
+  try {
+    const { userId, isAdmin } = req.user;
+
+    const allTask = isAdmin
+      ? await Task.find({
+          isTrashed: false,
+        })
+          .populate({
+            path: "team",
+            select: "name role title email",
+          })
+          .sort({ _id: -1 })
+      : await Task.find({
+          isTrashed: false,
+          team: { $all: [userId] },
+        })
+          .populate({
+            path: "team",
+            select: "name role title email",
+          })
+          .sort({ _id: -1 });
+
+    const users = await User.find({ isActive: true })
+      .select("name title role isAdmin createdAt")
+      .limit(10)
+      .sort({ _id: -1 });
+
+    //Task group by stage and calculate counts
+    const groupTask = allTask.ewduce((result, task) => {
+      const stage = task.stage;
+
+      if (!result[stage]) {
+        result[stage] = 1;
+      } else {
+        result[stage] += 1;
+      }
+
+      return result;
+    }, {});
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};
+
+// export const test = async (req, res) => {
+//   try {
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(400).json({ status: false, message: error.message });
+//   }
+// };
